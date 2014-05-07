@@ -1,37 +1,43 @@
-Search: <%= text_field_tag "search" %>
+<div class="row">
+  <div class="span6">
+    Search: <%= text_field_tag "search" %>
+    <ul id="results"></ul>
+  </div>
+  <div class="span6">
+    <%= form_for(@asset) do |f| %>
+      <% if @asset.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
 
-<%= form_for(@asset) do |f| %>
-  <% if @asset.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
-
-      <ul>
-      <% @asset.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @asset.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-<ul id="results"></ul>
+    
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_field :description %>
+      </div>
+      <div class="field">
+        <%= f.label :location_id %><br>
+        <%= f.collection_select(:location_id, @locations, :id, :name) %>
+      </div>
+      <div class="field">
+        <%= f.label :thumbnail %><br>
+        <%= f.text_field :thumbnail %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :location_id %><br>
-    <%= f.collection_select(:location_id, @locations, :id, :name) %>
-  </div>
-  <div class="field">
-    <%= f.label :thumbnail %><br>
-    <%= f.text_field :thumbnail %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
